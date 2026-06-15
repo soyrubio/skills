@@ -1,0 +1,4 @@
+interface:
+  display_name: "Notion Task PRs"
+  short_description: "Plan or implement Notion tasks as isolated reviewable PRs."
+  default_prompt: "Use $notion-task-prs for this Notion task workflow."

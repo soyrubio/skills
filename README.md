@@ -8,6 +8,8 @@ My curated list of skills and command-style workflows.
 - [`simplify-loop`](skills/coding/simplify-loop/SKILL.md) - Run `/simplify` repeatedly until no new issues are found.
 - [`grill-me`](skills/productivity/grill-me/SKILL.md) - Stress-test a plan or design through focused questions.
 - [`security-threat-model`](skills/security/security-threat-model/SKILL.md) - Build a repo-grounded threat model with abuse paths and mitigations.
+- [`notion-task-prs`](skills/automation/notion-task-prs/SKILL.md) - Plan or implement Notion tasks as isolated PRs.
+- [`approved-pr-merge`](skills/automation/approved-pr-merge/SKILL.md) - Merge approved PRs sequentially and update linked Notion tasks.
 
 ## Layout
 

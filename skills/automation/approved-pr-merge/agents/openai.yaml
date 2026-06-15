@@ -1,0 +1,4 @@
+interface:
+  display_name: "Approved PR Merge"
+  short_description: "Merge approved PRs sequentially and update linked Notion tasks."
+  default_prompt: "Use $approved-pr-merge to merge approved PRs."
