@@ -26,20 +26,24 @@ Load `references/merge-rules.md` before merging.
    - are approved by the configured user
    - have passing required checks
    - are linked to a Notion task
+   - use `agent-pr-schema:v1`
+   - have `Status = Ready for review`
 2. Sort by PR number ascending.
 3. Process one PR at a time.
 4. For each PR:
    - reread the PR, changed files, CI result, and linked Notion task
+   - reject draft, blocked, `do-not-merge`, missing-schema, or `Verification Result: BLOCKED` PRs
    - verify it is mergeable without an obvious regression
    - resolve only merge conflicts if needed
    - run relevant checks after conflict resolution
    - merge into the base branch
-   - update Notion: `Status = Done`, `Done date = today`
+   - update existing Notion fields only: done status and done date when present
 5. Stop on failing checks, unclear conflicts, missing approval, or suspected regression.
 
 ## Guardrails
 
 - Never batch-merge blindly.
+- Never change Notion table schema, property names, or select/status options.
 - Never continue if the base branch may be unstable.
 - Do not introduce new behavior while resolving conflicts.
 - Report merged PRs, stopped PR, blocker reason, and Notion update status.

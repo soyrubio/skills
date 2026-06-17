@@ -5,69 +5,47 @@ description: Plan or implement batches of Notion tasks as isolated GitHub pull r
 
 # Notion Task PRs
 
-Use this skill for the Notion -> plan -> implementation PR workflow. Keep prompts short; put repeated structure in references.
+Use this for Notion -> implementation -> PR automation. Adapt to the existing Notion database; never change its properties, names, or options.
 
 ## Inputs
 
-Collect only missing blockers:
 - Notion task list/page URL
 - mode: `plan` or `implement`
 - repo path or GitHub repo
-- task limit
+- task limit, default `20`
 - reviewer GitHub username
-
-Default task limit: `20`.
+- blocked GitHub visibility, default `no`
 
 ## References
 
-- Notion fields: `references/notion-schema.md`
-- Agent prompts: `references/agent-prompts.md`
-- PR template: `references/pr-template.md`
+- `references/notion-schema.md` - field mapping rules
+- `references/agent-prompts.md` - sub-agent prompts
+- `references/pr-template.md` - required PR schema
 
-Load only the references needed for the current mode.
-
-## Plan Mode
+## Workflow
 
 1. Read the Notion task list via MCP.
-2. Select tasks:
-   - `Status = To-do`
-   - `Me/Claude = Claude`
-3. Sort by Due Date ascending, empty dates last, then Priority descending.
-4. Limit to the requested task count.
-5. For each task:
-   - read the task, comments, and linked context
-   - inspect relevant repo context
-   - write a concise plan to Notion
-   - set `Status = Plan ready`
-6. If a task is unclear or unsafe, set `Status = Blocked` and write the blocker reason.
+2. Map existing fields when present: status, assignee, priority, due date, PR URL, branch, done date. Do not add or edit fields/options.
+3. Select open/to-do tasks assigned to Claude/agent when an assignee field exists.
+4. Sort by due date, then priority, when available. Apply the task limit.
+5. For each task, read the page/comments first and decide whether it is actionable.
 
-## Implement Mode
+Plan mode:
+- Write a concise plan into the Notion page/comment.
+- If blocked, use an existing blocked status when available and write the reason in the page/comment.
 
-1. Read the Notion task list via MCP.
-2. Select tasks:
-   - `Status = Approved for implementation`
-   - `Me/Claude = Claude`
-3. Sort by Due Date ascending, empty dates last, then Priority descending.
-4. Limit to the requested task count.
-5. For each task, create one isolated `/tmp` worktree and branch.
-6. Spawn exactly one implementation agent per task when sub-agent tools are available.
-7. Require each agent to:
-   - follow the approved plan
-   - keep scope limited to one task
-   - run relevant tests/checks
-   - run `$simplify` when available
-   - commit, push, and open a PR using `references/pr-template.md`
-   - request review from the configured reviewer
-   - update Notion with `Pending review`, PR URL, and branch
-8. After agents finish:
-   - verify each successful task has a reachable PR
-   - update failed tasks with a short reason
-   - delete created local worktrees
-   - report PRs, failures, and cleanup status
+Implement mode:
+- For each actionable task, create one `/tmp` worktree and branch.
+- Spawn one implementation agent per task when sub-agent tools are available.
+- Require the agent to implement, test, run `$simplify` when available, commit, push, open a PR using `agent-pr-schema:v1`, and request reviewer approval.
+- Update existing Notion fields only: pending-review status, PR URL, branch.
+- For blocked tasks, write the reason in the page/comment. Create a draft/closed blocked GitHub artifact only if the user requested it.
+- After all agents finish, verify PR links, delete worktrees, and report PRs/failures/cleanup.
 
 ## Guardrails
 
-- Do not implement tasks that are only `Plan ready`; wait for approval.
-- Do not create weak PRs for blocked or unclear tasks.
-- Keep each task on its own branch and worktree.
-- Leave remaining tasks unchanged for the next run.
+- Never change Notion table schema, property names, or select/status options.
+- If a useful Notion field is missing, write the information in the page/comment.
+- Do not create normal PRs for blocked or unclear tasks.
+- Blocked GitHub artifacts must use the blocked schema, labels `blocked` and `do-not-merge`, and must not be merged.
+- Keep each task on its own branch/worktree.

@@ -1,22 +1,18 @@
-# Notion Schema
+# Notion Field Mapping
 
-Required properties:
-- `Status`: `To-do`, `Plan ready`, `Approved for implementation`, `Pending review`, `Done`, `Blocked`
-- `Me/Claude`: assignee selector; process `Claude`
-- `Priority`: sortable priority
-- `Due Date`
-- `Done date`
-- `Plan`
-- `PR URL`
-- `Branch`
-- `Failure reason`
+Never change the Notion database schema, property names, or select/status options.
 
-Optional useful properties:
-- `Repo`
-- `Area`
-- `Risk`
+Map the existing database fields when present:
+- status: open/to-do, pending review, done, blocked
+- assignee/owner: Claude/agent/user
+- priority
+- due date
+- done date
+- PR URL
+- branch
+- repo/area/risk
 
-Status flow:
-`To-do` -> `Plan ready` -> `Approved for implementation` -> `Pending review` -> `Done`
+If a useful field is missing, do not create it. Put the information in the task page/comment instead.
 
-Use `Blocked` only when the agent cannot proceed without human input or unsafe assumptions.
+Selection rule:
+Process tasks whose existing status means open/to-do and whose assignee field, if present, points to Claude/agent. Each agent must assess readiness after reading the page/comments. If not actionable, mark an existing blocked status when available and write the reason in the page/comment.

@@ -15,6 +15,22 @@ My curated list of skills and command-style workflows.
 
 Skills live under `skills/<category>/<skill-name>/SKILL.md`.
 
+## Automation Setup
+
+`notion-task-prs` adapts to your existing Notion table and must not change database properties or options. For the smoothest workflow, use a task database with:
+
+- `Status`: `To-do`, `Pending review`, `Done`, `Blocked`
+- `Me/Claude`: assignee selector; assign work to `Claude`
+- `Priority`
+- `Due Date`
+- `Done date`
+- `PR URL`
+- `Branch`
+
+Blocked details, dependency notes, plans, and verification results belong in the Notion page body or comments, not extra table columns.
+
+Agent-created PRs should use `agent-pr-schema:v1` from [`pr-template.md`](skills/automation/notion-task-prs/references/pr-template.md). Merge automation rejects blocked/draft/do-not-merge PRs even when CI is green.
+
 ## References
 
 - `/simplify` is adapted from Anthropic's [`code-simplifier`](https://github.com/anthropics/claude-plugins-official/blob/main/plugins/code-simplifier/agents/code-simplifier.md).

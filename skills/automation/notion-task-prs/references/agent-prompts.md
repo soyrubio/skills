@@ -4,18 +4,16 @@
 
 ```text
 Read Notion task <TASK_URL>, including comments and linked context.
-
 Do not implement.
 
-Inspect relevant repo context and write a concise plan back to Notion:
+Write a concise plan into the Notion page/comment:
 - goal
 - approach
 - affected files/modules
 - test plan
 - risks/questions
 
-Set Status = "Plan ready".
-If unclear or unsafe, set Status = "Blocked" and write the reason.
+Use only existing Notion fields/options. If blocked, use an existing blocked status when available and write the reason in the page/comment.
 ```
 
 ## Implementation Agent
@@ -24,19 +22,13 @@ If unclear or unsafe, set Status = "Blocked" and write the reason.
 Implement Notion task <TASK_URL>.
 
 Rules:
-- read the task, comments, and approved plan
+- read the task, comments, linked context, and any plan in the page
+- before coding, block if dependencies/data/credentials/spec are missing
 - use a separate /tmp worktree and dedicated branch
 - keep scope limited to this task
-- run relevant tests/checks
-- run $simplify when available
-- commit with a clear technical summary
-- push branch and open a PR using the standard template
-- assign <GITHUB_USERNAME> as reviewer
+- run relevant tests/checks and $simplify when available
+- commit, push, open a PR using agent-pr-schema:v1, and assign <GITHUB_USERNAME> as reviewer
+- update only existing Notion fields: pending-review status, PR URL, branch
 
-Update Notion:
-- Status = "Pending review"
-- PR URL = created PR URL
-- Branch = branch name
-
-If blocked, do not open a weak PR. Set Status = "Blocked" and write the reason.
+If blocked, write the reason in Notion and do not open a normal PR. If GitHub visibility was requested, create only a draft/closed blocked artifact labeled `blocked` + `do-not-merge`.
 ```

@@ -1,29 +1,64 @@
-# PR Template
+# PR Schema
+
+Every agent-created PR body must use this schema. Keep sections short and complete.
 
 ````markdown
-## Summary
+<!-- agent-pr-schema:v1 -->
+
+## Status
+Ready for review
 
 ## Notion
+- Task: <TASK_URL>
+- Notion status: Pending review
 
-<TASK_URL>
+## Summary
+- <what changed>
 
-## Implementation
+## Changes
+- <files/modules/behavior changed>
 
-## Tests
+## Verification
+- Result: PASS | NOT RUN
+- Commands:
 
 ```bash
 <commands>
 ```
 
 ## Manual QA
-
 - [ ]
 
 ## Risk
+Low | Medium | High
 
-Low / Medium / High
-
-## Follow-ups
-
+## Human Follow-up
 None
 ````
+
+Rules:
+- `Status` is `Ready for review` only for mergeable PRs.
+- Use `Result: PASS` when checks ran and passed.
+- Use `Result: NOT RUN` only with a short reason under `Human Follow-up`.
+- Do not put blocked work in a normal PR.
+
+If GitHub visibility is required for blocked work, create a draft or immediately closed info artifact:
+
+````markdown
+<!-- agent-pr-schema:v1 -->
+
+## Status
+Blocked
+
+## Notion
+- Task: <TASK_URL>
+- Notion status: Blocked
+
+## Blocker
+- <why work cannot proceed>
+
+## Required Human Action
+- <specific next action>
+````
+
+Blocked artifacts must be labeled `blocked` and `do-not-merge`, and must not be merged.
