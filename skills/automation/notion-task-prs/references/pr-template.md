@@ -42,10 +42,10 @@ Rules:
 - Use `Result: NOT RUN` only with a short reason under `Human Follow-up`.
 - Do not put blocked work in a normal PR.
 
-If GitHub visibility is required for blocked work, create an empty-commit notification PR:
+For blocked work, create an empty-commit notification PR:
 - branch: `blocked/<task-slug>`
 - commit: `git commit --allow-empty -m "<blocked summary>"`
-- PR state: draft, or closed immediately if only history is needed
+- PR state: draft, left open for the user to close
 - labels: `blocked`, `do-not-merge`
 
 ````markdown

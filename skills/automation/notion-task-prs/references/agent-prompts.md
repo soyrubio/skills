@@ -30,11 +30,10 @@ Rules:
 - commit, push, open a PR using agent-pr-schema:v1, and assign <GITHUB_USERNAME> as reviewer
 - update only existing Notion fields: pending-review status, PR URL, branch
 
-If blocked, write the reason in Notion and do not open a normal PR.
-If GitHub visibility was requested:
+If blocked, write the reason in Notion and create a blocked notification PR:
 - create branch `blocked/<task-slug>`
 - create an empty commit with `git commit --allow-empty -m "<summary>"`
 - open a draft PR using the blocked schema
 - label it `blocked` + `do-not-merge`
-- close it immediately when requested mode is `closed-pr`
+- leave it open for the user to close
 ```

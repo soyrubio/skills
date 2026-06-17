@@ -14,7 +14,6 @@ Use this for Notion -> implementation -> PR automation. Adapt to the existing No
 - repo path or GitHub repo
 - task limit, default `20`
 - reviewer GitHub username
-- blocked GitHub visibility: `no`, `draft-pr`, or `closed-pr`; default `no`
 
 ## References
 
@@ -39,7 +38,7 @@ Implement mode:
 - Spawn one implementation agent per task when sub-agent tools are available.
 - Require the agent to implement, test, run `$simplify` when available, commit, push, open a PR using `agent-pr-schema:v1`, and request reviewer approval.
 - Update existing Notion fields only: pending-review status, PR URL, branch.
-- For blocked tasks, write the reason in the page/comment. If requested, create an empty-commit blocked notification PR.
+- For blocked tasks, write the reason in the page/comment and, by default, create an empty-commit draft notification PR.
 - After all agents finish, verify PR links, delete worktrees, and report PRs/failures/cleanup.
 
 ## Guardrails
@@ -47,6 +46,6 @@ Implement mode:
 - Never change Notion table schema, property names, or select/status options.
 - If a useful Notion field is missing, write the information in the page/comment.
 - Do not create normal PRs for blocked or unclear tasks.
-- Blocked GitHub artifacts are notifications only: create branch `blocked/<task-slug>`, commit with `git commit --allow-empty`, open a draft PR, use the blocked schema, label `blocked` and `do-not-merge`, and close it immediately when mode is `closed-pr`.
+- Blocked GitHub artifacts are notifications only: create branch `blocked/<task-slug>`, commit with `git commit --allow-empty`, open a draft PR, use the blocked schema, label `blocked` and `do-not-merge`, and leave it open for the user to close.
 - Blocked notification PRs must link the Notion task, explain the blocker, and must never be merged.
 - Keep each task on its own branch/worktree.
