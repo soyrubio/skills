@@ -42,7 +42,11 @@ Rules:
 - Use `Result: NOT RUN` only with a short reason under `Human Follow-up`.
 - Do not put blocked work in a normal PR.
 
-If GitHub visibility is required for blocked work, create a draft or immediately closed info artifact:
+If GitHub visibility is required for blocked work, create an empty-commit notification PR:
+- branch: `blocked/<task-slug>`
+- commit: `git commit --allow-empty -m "<blocked summary>"`
+- PR state: draft, or closed immediately if only history is needed
+- labels: `blocked`, `do-not-merge`
 
 ````markdown
 <!-- agent-pr-schema:v1 -->
@@ -61,4 +65,4 @@ Blocked
 - <specific next action>
 ````
 
-Blocked artifacts must be labeled `blocked` and `do-not-merge`, and must not be merged.
+Blocked notification PRs must link the Notion task, explain the blocker, and must never be merged.

@@ -15,6 +15,7 @@ Resolve conflicts only when the intent is clear. Preserve both sides where possi
 
 Stop immediately on:
 - draft, closed, blocked, or `do-not-merge`
+- empty-commit blocked notification PRs
 - missing `agent-pr-schema:v1`
 - `Status = Blocked`
 - `Verification Result: BLOCKED`, `Status = Blocked`, or `Result: NOT RUN`

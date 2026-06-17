@@ -32,7 +32,7 @@ Load `references/merge-rules.md` before merging.
 3. Process one PR at a time.
 4. For each PR:
    - reread the PR, changed files, CI result, and linked Notion task
-   - reject draft, blocked, `do-not-merge`, missing-schema, or `Verification Result: BLOCKED` PRs
+   - reject draft, blocked, `do-not-merge`, empty-commit notification, missing-schema, or `Verification Result: BLOCKED` PRs
    - verify it is mergeable without an obvious regression
    - resolve only merge conflicts if needed
    - run relevant checks after conflict resolution
