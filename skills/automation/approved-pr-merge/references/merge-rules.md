@@ -25,4 +25,6 @@ Stop immediately on:
 - missing or stale approval
 - missing linked Notion task
 
+Closed blocked notification PRs are acknowledgements only. Do not mark the linked Notion task done, remove it from tracking, or treat it as completed.
+
 When updating Notion, use existing fields only. Never add properties or status options.

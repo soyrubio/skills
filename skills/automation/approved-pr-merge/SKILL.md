@@ -44,6 +44,7 @@ Load `references/merge-rules.md` before merging.
 
 - Never batch-merge blindly.
 - Never change Notion table schema, property names, or select/status options.
+- A closed blocked notification PR is only an acknowledgement; do not mark its Notion task done, remove it, or finish it.
 - Never continue if the base branch may be unstable.
 - Do not introduce new behavior while resolving conflicts.
 - Report merged PRs, stopped PR, blocker reason, and Notion update status.

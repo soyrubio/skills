@@ -29,7 +29,7 @@ Skills live under `skills/<category>/<skill-name>/SKILL.md`.
 
 Blocked details, dependency notes, plans, and verification results belong in the Notion page body or comments, not extra table columns.
 
-Agent-created PRs should use `agent-pr-schema:v1` from [`pr-template.md`](skills/automation/notion-task-prs/references/pr-template.md). Normal PRs are mergeable work. Blocked tasks create an empty-commit draft PR labeled `blocked` + `do-not-merge`; merge automation rejects those even when CI is green.
+Agent-created PRs should use `agent-pr-schema:v1` from [`pr-template.md`](skills/automation/notion-task-prs/references/pr-template.md). Normal PRs are mergeable work. Blocked tasks create an empty-commit draft PR labeled `blocked` + `do-not-merge`; merge automation rejects those even when CI is green. Closing a blocked notification PR is acknowledgement only, not task completion.
 
 ## References
 
